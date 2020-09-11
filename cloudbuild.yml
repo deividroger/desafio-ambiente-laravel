@@ -1,6 +1,10 @@
 steps:
+    # - id: "Rodando docker-compose"
+    #   name: 'gcr.io/$PROJECT_ID/docker-compose:1.25.5'
+    #   args: ['-f','docker-compose.cloudbuild.yml','up', '-d']
+
     - id: "Rodando docker-compose"
-      name: 'gcr.io/$PROJECT_ID/docker-compose:1.25.5'
+      name: 'docker/compose'
       args: ['-f','docker-compose.cloudbuild.yml','up', '-d']
 
     - id: "Chown in /var/www"
@@ -8,7 +12,7 @@ steps:
       args: ['exec','-u','root','-t','app','chown','-R','www-data:www-data','/var/www']
 
     - id: "Rodando docker ps"
-      name: 'gcr.io/cloud-builders/docker'
+      name: 'docker'
       args: ['ps']
 
     - id: "Rodando composer"
