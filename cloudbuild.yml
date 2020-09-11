@@ -30,8 +30,3 @@ steps:
     - id: "Rodando o phpunit"
       name: 'gcr.io/cloud-builders/docker'
       args: ['exec','-t','app','php','/var/www/vendor/bin/phpunit','-c','/var/www/phpunit.xml']
-
-
-    - id: "Subindo php fpm"
-      name: 'gcr.io/cloud-builders/docker'
-      args: ['exec','-t','app','php-fpm']
