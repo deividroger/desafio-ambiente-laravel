@@ -45,6 +45,15 @@ steps:
       args:
         - '-c'
         - |
-          sed 's#img-app-deployment#gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA#g' .k8s/app/deployment.yml > k8s/app/deployment-new.yml;
+          sed 's#img-app-deployment#gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA#g' k8s/app/deployment.yml > k8s/app/deployment-new.yml;
           cat k8s/app/deployment-new.yml;
-
+    
+    - id: "Deploying k8s"
+      name: 'gcr.io/cloud-builders/kubectl'
+      args:
+        - 'apply'
+        - 'f'
+        - 'k8s/app/deployment-new.yml'
+      env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
